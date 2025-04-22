@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -14,16 +14,19 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class User {
+public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     String id;
-    String username;
-    String password;
-    String firstName;
-    String lastName;
-    Set<String> Role;
+    int quantity;
+    double sumMoney;
+    LocalDate dob;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Orders> orders;
+    @ManyToOne
+    @JoinColumn(name = "id_user", nullable = false)
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "id_product", nullable = false)
+    private Product product;
 }
