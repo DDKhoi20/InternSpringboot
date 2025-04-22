@@ -40,19 +40,14 @@ public class UserController {
         return apiResponse;
     }
 
-//    @PutMapping("/{userId}")
-//    ApiResponse<UserResponse> updateUser(@PathVariable("userId") String userId,
-//                                         @RequestBody UserUpdateRequest request){
-//        ApiResponse<UserResponse> apiResponse = new ApiResponse<>();
-//        apiResponse.setResult(userService.updateUser(userId, request));
-//        return apiResponse;
-//    }
-
     @PutMapping("/{userId}")
-    UserResponse updateUser(@RequestBody UserUpdateRequest userUpdateRequest,
-                            @PathVariable("userId") String userId){
-        return userService.updateUser(userId, userUpdateRequest);
+    ApiResponse<UserResponse> updateUser(@PathVariable("userId") String userId,
+                                         @RequestBody UserUpdateRequest request){
+        ApiResponse<UserResponse> apiResponse = new ApiResponse<>();
+        apiResponse.setResult(userService.updateUser(userId, request));
+        return apiResponse;
     }
+
 
     @DeleteMapping("/{userId}")
     String deleteUser(@PathVariable("userId") String userId){
