@@ -42,4 +42,9 @@ public class ProductController {
         apiResponse.setResult(productService.updateProduct(productId, request));
         return apiResponse;
     }
+
+    @DeleteMapping("/{productId}")
+    public String deleteProduct(@PathVariable("productId") String productId){
+        return productService.deleteBook(productId);
+    }
 }

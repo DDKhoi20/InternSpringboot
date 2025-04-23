@@ -4,7 +4,9 @@ import com.example.InternSpringboot.dto.request.UserCreationRequest;
 import com.example.InternSpringboot.dto.request.UserUpdateRequest;
 import com.example.InternSpringboot.dto.response.UserResponse;
 import com.example.InternSpringboot.entity.User;
+import com.example.InternSpringboot.enums.ErrorCode;
 import com.example.InternSpringboot.enums.Role;
+import com.example.InternSpringboot.exception.AppException;
 import com.example.InternSpringboot.mapper.UserMapper;
 import com.example.InternSpringboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,13 +45,13 @@ public class UserService {
 
     public UserResponse getUser(String userId){
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
         return userMapper.toUserResponse(user);
     }
 
     public UserResponse updateUser(String userId,UserUpdateRequest request){
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
         userMapper.updateUser(user, request);
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
         user.setPassword(passwordEncoder.encode(request.getPassword()));

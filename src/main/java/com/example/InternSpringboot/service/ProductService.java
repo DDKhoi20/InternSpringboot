@@ -35,4 +35,9 @@ public class ProductService {
         productMapper.updateProduct(product, request);
         return productMapper.toProductResponse(productRepository.save(product));
     }
+
+    public String deleteBook(String productId){
+        productRepository.deleteById(productId);
+        return "Product has been deleted.";
+    }
 }

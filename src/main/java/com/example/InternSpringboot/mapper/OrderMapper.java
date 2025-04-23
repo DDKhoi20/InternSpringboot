@@ -11,8 +11,12 @@ import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface OrderMapper {
     @Mapping(target = "id", source = "orders.id")
     OrderResponse toOrderResponse(Orders orders, UserResponse userResponse, ProductResponse productResponse);
+    @Mapping(target = "id", source = "orders.id")
+    List<OrderResponse> toOrderResponse(List<Orders> orders);
 }

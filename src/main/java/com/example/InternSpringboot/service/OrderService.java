@@ -14,6 +14,8 @@ import com.example.InternSpringboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OrderService {
     @Autowired
@@ -42,5 +44,10 @@ public class OrderService {
         order.setSumMoney(product.getPrice()* request.getQuantity());
         orderRepository.save(order);
         return orderMapper.toOrderResponse(order, userMapper.toUserResponse(user), productMapper.toProductResponse(product));
+    }
+
+    public List<OrderResponse> getAllOrder(){
+        List<Orders> orders = orderRepository.findAll();
+        return orderMapper.toOrderResponse(orders);
     }
 }
